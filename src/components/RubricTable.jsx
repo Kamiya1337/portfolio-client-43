@@ -3,13 +3,12 @@ import { portfolioData } from '../data/portfolioData';
 
 export default function RubricTable() {
   const { projects, rubric } = portfolioData;
-  const totalMilestones = projects.length * 2;
+  const totalMilestones = projects.length;
   const completedMilestones = projects.reduce((acc, project) => {
     const reportDone = project.report !== 'Sáº½ cáº­p nháº­t sau' && project.report !== '' && project.report !== 'KhÃ´ng yÃªu cáº§u';
-    const imgDone = project.evidenceImg !== 'Sáº½ cáº­p nháº­t sau' && project.evidenceImg !== '' && project.evidenceImg !== 'KhÃ´ng yÃªu cáº§u';
-    return acc + (reportDone ? 1 : 0) + (imgDone ? 1 : 0);
+    return acc + (reportDone ? 1 : 0);
   }, 0);
-  const progressPercent = Math.round(50 + (completedMilestones / totalMilestones) * 50);
+  const progressPercent = Math.round((completedMilestones / totalMilestones) * 100);
 
   return (
     <div className="rounded-[2rem] border border-academic-border bg-white p-7 md:p-12 lg:p-16">
@@ -30,7 +29,7 @@ export default function RubricTable() {
             </div>
             <div className="mt-4 flex items-center gap-2 text-sm text-academic-muted">
               <RefreshCw size={15} />
-              <span>{completedMilestones}/{totalMilestones} mục báo cáo và ảnh minh chứng đã được đồng bộ.</span>
+              <span>{completedMilestones}/{totalMilestones} báo cáo PDF đã được đồng bộ.</span>
             </div>
           </div>
         </div>
@@ -38,8 +37,7 @@ export default function RubricTable() {
         <div className="grid gap-6 md:grid-cols-2 lg:col-span-8">
           {projects.map((project) => {
             const reportDone = project.report !== 'Sáº½ cáº­p nháº­t sau' && project.report !== '' && project.report !== 'KhÃ´ng yÃªu cáº§u';
-            const imgDone = project.evidenceImg !== 'Sáº½ cáº­p nháº­t sau' && project.evidenceImg !== '' && project.evidenceImg !== 'KhÃ´ng yÃªu cáº§u';
-            const isFullyDone = reportDone && imgDone;
+            const isFullyDone = reportDone;
             const rubricItem = rubric[project.id - 1];
 
             return (
@@ -49,7 +47,7 @@ export default function RubricTable() {
                   {isFullyDone ? <CheckCircle2 className="text-academic-deep-rose" size={19} /> : <CircleDashed className="text-academic-muted" size={19} />}
                 </div>
                 <h3 className="mt-3 font-black leading-6 text-academic-deep-rose">{project.title}</h3>
-                <p className="mt-2 text-sm font-semibold text-academic-ink">{isFullyDone ? 'Đạt chuẩn minh chứng' : 'Cần bổ sung minh chứng'}</p>
+                <p className="mt-2 text-sm font-semibold text-academic-ink">{isFullyDone ? 'Đã có báo cáo PDF' : 'Cần bổ sung báo cáo'}</p>
                 {rubricItem && <p className="mt-3 text-sm leading-6 text-academic-muted">{rubricItem.action}</p>}
               </article>
             );

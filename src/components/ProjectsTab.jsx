@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { ArrowLeft, ExternalLink, FileText, FolderOpen, Image, Maximize2, ShieldCheck, X } from 'lucide-react';
+import { ArrowLeft, ExternalLink, FileText, Maximize2, ShieldCheck, X } from 'lucide-react';
 import { portfolioData } from '../data/portfolioData';
 
 const unavailable = (value) => !value || value === 'Sáº½ cáº­p nháº­t sau';
@@ -21,7 +21,7 @@ function PreviewModal({ previewData, onClose }) {
         <div className="flex items-center justify-between gap-4 border-b border-academic-border bg-academic-ivory px-5 py-4">
           <div>
             <p className="section-kicker">Preview</p>
-            <h3 className="mt-1 font-bold text-academic-ink">{previewData.type === 'pdf' ? 'Trình xem PDF' : 'Trình xem hình ảnh'}</h3>
+            <h3 className="mt-1 font-bold text-academic-ink">Trình xem PDF</h3>
           </div>
           <div className="flex items-center gap-2">
             <a href={previewData.url} target="_blank" rel="noreferrer" className="icon-button" aria-label="Mở trong tab mới"><ExternalLink size={18} /></a>
@@ -29,17 +29,11 @@ function PreviewModal({ previewData, onClose }) {
           </div>
         </div>
         <div className="min-h-0 flex-1 overflow-hidden bg-academic-ivory">
-          {previewData.type === 'pdf' ? (
-            <iframe
-              src={previewData.url}
-              title="Bản xem trước báo cáo PDF"
-              className="block h-full w-full border-0 bg-transparent"
-            />
-          ) : (
-            <div className="flex h-full items-center justify-center overflow-auto bg-transparent">
-              <img src={previewData.url} alt="Ảnh minh chứng bài tập" className="block max-h-full max-w-full object-contain" />
-            </div>
-          )}
+          <iframe
+            src={previewData.url}
+            title="Bản xem trước báo cáo PDF"
+            className="block h-full w-full border-0 bg-transparent"
+          />
         </div>
       </div>
     </div>
@@ -49,8 +43,6 @@ function PreviewModal({ previewData, onClose }) {
 function ResourceAction({ value, type, onPreview }) {
   const config = {
     pdf: { label: 'Báo cáo PDF', icon: FileText },
-    img: { label: 'Ảnh minh chứng', icon: Image },
-    drive: { label: 'Google Drive', icon: FolderOpen },
   }[type];
   const Icon = config.icon;
 
@@ -60,14 +52,12 @@ function ResourceAction({ value, type, onPreview }) {
   return (
     <a
       href={value}
-      target={type === 'drive' ? '_blank' : undefined}
-      rel={type === 'drive' ? 'noreferrer' : undefined}
-      onClick={type === 'drive' ? undefined : (event) => onPreview(event, value, type)}
+      onClick={(event) => onPreview(event, value, type)}
       className="resource-action"
     >
       <Icon size={17} />
       {config.label}
-      {type === 'drive' ? <ExternalLink size={14} /> : <Maximize2 size={14} />}
+      <Maximize2 size={14} />
     </a>
   );
 }
@@ -123,11 +113,9 @@ export default function ProjectsTab() {
           </div>
 
           <div className="border-t border-academic-border bg-academic-blush/50 p-7 md:px-10">
-            <p className="section-kicker mb-4">Tài liệu & minh chứng</p>
+            <p className="section-kicker mb-4">Tài liệu báo cáo</p>
             <div className="flex flex-wrap gap-3">
               <ResourceAction value={selectedProject.report} type="pdf" onPreview={openPreview} />
-              <ResourceAction value={selectedProject.evidenceImg} type="img" onPreview={openPreview} />
-              <ResourceAction value={selectedProject.driveLink} type="drive" onPreview={openPreview} />
             </div>
           </div>
         </article>

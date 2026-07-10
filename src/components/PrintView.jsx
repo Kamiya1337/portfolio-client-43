@@ -93,8 +93,6 @@ export default function PrintView() {
                   <div className="bg-slate-50 p-3 rounded-lg border border-slate-200 text-slate-700 mt-2 font-mono text-[11px] space-y-1">
                     <p className="font-bold font-sans text-xs text-slate-800 mb-1">4. Danh mục tài nguyên dữ liệu:</p>
                     <p>• File Báo cáo (PDF): <span className={project.report === "Sẽ cập nhật sau" ? "text-amber-600 font-bold" : "text-blue-600 font-bold break-all"}>{project.report || "Sẽ cập nhật sau"}</span></p>
-                    <p>• Ảnh chụp màn hình: <span className={project.evidenceImg === "Sẽ cập nhật sau" ? "text-amber-600 font-bold" : "text-blue-600 font-bold break-all"}>{project.evidenceImg || "Sẽ cập nhật sau"}</span></p>
-                    <p>• Đường dẫn Google Drive: <span className={project.driveLink === "Sẽ cập nhật sau" ? "text-amber-600 font-bold" : "text-green-600 font-bold break-all"}>{project.driveLink || "Sẽ cập nhật sau"}</span></p>
                   </div>
                 </div>
               </div>
@@ -111,19 +109,15 @@ export default function PrintView() {
             <table className="w-full text-left border-collapse">
               <thead>
                 <tr className="bg-slate-100 border-b border-slate-300 text-slate-700 text-xs">
-                  <th className="p-3 font-bold border-r border-slate-300 w-1/4">Nhiệm vụ / Bài tập</th>
+                  <th className="p-3 font-bold border-r border-slate-300 w-1/3">Nhiệm vụ / Bài tập</th>
                   <th className="p-3 font-bold border-r border-slate-300">Đường dẫn Báo cáo</th>
-                  <th className="p-3 font-bold border-r border-slate-300">Đường dẫn Ảnh minh chứng</th>
-                  <th className="p-3 font-bold">Liên kết Google Drive tài nguyên</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-200 text-[11px]">
                 {projects.map((project) => (
                   <tr key={project.id} className="hover:bg-slate-50/50">
                     <td className="p-3 font-bold bg-slate-50 border-r border-slate-200">{project.title}</td>
-                    <td className="p-3 border-r border-slate-200 break-all font-mono">{project.report || "Sẽ cập nhật sau"}</td>
-                    <td className="p-3 border-r border-slate-200 break-all font-mono">{project.evidenceImg || "Sẽ cập nhật sau"}</td>
-                    <td className="p-3 break-all font-mono text-slate-600">{project.driveLink || "Sẽ cập nhật sau"}</td>
+                    <td className="p-3 break-all font-mono">{project.report || "Sẽ cập nhật sau"}</td>
                   </tr>
                 ))}
               </tbody>

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { BookOpenText, Printer, X } from 'lucide-react';
+import { BookOpenText, X } from 'lucide-react';
 import HomeTab from './components/HomeTab';
 import ProjectsTab from './components/ProjectsTab';
 import RubricTable from './components/RubricTable';
